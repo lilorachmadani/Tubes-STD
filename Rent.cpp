@@ -51,3 +51,34 @@ void tambahBarang(int idBarang, string namaBarang)
 
     cout << "Barang berhasil ditambahkan\n";
 }
+
+void tambahRelasi(int idToko, int idBarang)
+{
+    Toko *t = cariToko(idToko);
+    Barang *b = cariBarang(idBarang);
+
+    if (t == NULL || b == NULL)
+    {
+        cout << "Toko atau Barang tidak ditemukan\n";
+        return;
+    }
+
+    Relasi *r = firstRelasi;
+    while (r != NULL)
+    {
+        if (r->toko == t && r->barang == b)
+        {
+            cout << "Relasi sudah ada\n";
+            return;
+        }
+        r = r->next;
+    }
+
+    Relasi *baru = new Relasi;
+    baru->toko = t;
+    baru->barang = b;
+    baru->next = firstRelasi;
+    firstRelasi = baru;
+
+    cout << "Relasi berhasil ditambahkan\n";
+}
