@@ -174,3 +174,33 @@ void hapusBarang(int idBarang)
     delete p;
     cout << "Barang dan relasinya berhasil dihapus\n";
 }
+
+void tampilSemuaToko()
+{
+    if (firstToko == NULL)
+    {
+        cout << "Data toko kosong\n";
+        return;
+    }
+
+    for (Toko *t = firstToko; t != NULL; t = t->next)
+    {
+        cout << "\nID Toko   : " << t->idToko << endl;
+        cout << "Nama Toko : " << t->namaToko << endl;
+        cout << "Barang disewakan:\n";
+
+        bool ada = false;
+        for (Relasi *r = firstRelasi; r != NULL; r = r->next)
+        {
+            if (r->toko == t)
+            {
+                cout << " - ID Barang : " << r->barang->idBarang
+                     << " | Nama : " << r->barang->namaBarang << endl;
+                ada = true;
+            }
+        }
+
+        if (!ada)
+            cout << " (Tidak ada barang)\n";
+    }
+}
