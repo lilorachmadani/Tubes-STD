@@ -232,3 +232,72 @@ void tampilBarangDariToko(int idToko)
     if (!ada)
         cout << " (Tidak ada barang)\n";
 }
+
+void tampilTokoDariBarang(int idBarang)
+{
+    Barang *b = cariBarang(idBarang);
+    if (b == NULL)
+    {
+        cout << "Barang tidak ditemukan\n";
+        return;
+    }
+
+    cout << "\nID Barang   : " << b->idBarang << endl;
+    cout << "Nama Barang : " << b->namaBarang << endl;
+    cout << "Disewakan oleh toko:\n";
+
+    bool ada = false;
+    for (Relasi *r = firstRelasi; r != NULL; r = r->next)
+    {
+        if (r->barang == b)
+        {
+            cout << " - ID Toko : " << r->toko->idToko
+                 << " | Nama : " << r->toko->namaToko << endl;
+            ada = true;
+        }
+    }
+
+    if (!ada)
+        cout << " (Tidak ada toko)\n";
+}
+
+void tampilTokoTerbanyakTersedikit()
+{
+    if (firstToko == NULL)
+    {
+        cout << "Data toko kosong\n";
+        return;
+    }
+
+    Toko *maxT = NULL, *minT = NULL;
+    int max = -1, min = 999999;
+
+    for (Toko *t = firstToko; t != NULL; t = t->next)
+    {
+        int count = 0;
+        for (Relasi *r = firstRelasi; r != NULL; r = r->next)
+            if (r->toko == t)
+                count++;
+
+        if (count > max)
+        {
+            max = count;
+            maxT = t;
+        }
+        if (count < min)
+        {
+            min = count;
+            minT = t;
+        }
+    }
+
+    cout << "\nToko Terlengkap : "
+         << maxT->namaToko
+         << " | ID: " << maxT->idToko
+         << " (" << max << " barang)\n";
+
+    cout << "Toko Tersedikit : "
+         << minT->namaToko
+         << " | ID: " << minT->idToko
+         << " (" << min << " barang)\n";
+}
