@@ -128,3 +128,49 @@ void hapusToko(int idToko)
     delete p;
     cout << "Toko dan relasinya berhasil dihapus\n";
 }
+
+void hapusBarang(int idBarang)
+{
+    Barang *p = firstBarang, *prev = NULL;
+
+    while (p != NULL && p->idBarang != idBarang)
+    {
+        prev = p;
+        p = p->next;
+    }
+
+    if (p == NULL)
+    {
+        cout << "Barang tidak ditemukan\n";
+        return;
+    }
+
+    if (prev == NULL)
+        firstBarang = p->next;
+    else
+        prev->next = p->next;
+
+    Relasi *r = firstRelasi, *pr = NULL;
+    while (r != NULL)
+    {
+        if (r->barang == p)
+        {
+            if (pr == NULL)
+                firstRelasi = r->next;
+            else
+                pr->next = r->next;
+
+            Relasi *hapus = r;
+            r = r->next;
+            delete hapus;
+        }
+        else
+        {
+            pr = r;
+            r = r->next;
+        }
+    }
+
+    delete p;
+    cout << "Barang dan relasinya berhasil dihapus\n";
+}
