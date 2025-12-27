@@ -82,3 +82,49 @@ void tambahRelasi(int idToko, int idBarang)
 
     cout << "Relasi berhasil ditambahkan\n";
 }
+
+void hapusToko(int idToko)
+{
+    Toko *p = firstToko, *prev = NULL;
+
+    while (p != NULL && p->idToko != idToko)
+    {
+        prev = p;
+        p = p->next;
+    }
+
+    if (p == NULL)
+    {
+        cout << "Toko tidak ditemukan\n";
+        return;
+    }
+
+    if (prev == NULL)
+        firstToko = p->next;
+    else
+        prev->next = p->next;
+
+    Relasi *r = firstRelasi, *pr = NULL;
+    while (r != NULL)
+    {
+        if (r->toko == p)
+        {
+            if (pr == NULL)
+                firstRelasi = r->next;
+            else
+                pr->next = r->next;
+
+            Relasi *hapus = r;
+            r = r->next;
+            delete hapus;
+        }
+        else
+        {
+            pr = r;
+            r = r->next;
+        }
+    }
+
+    delete p;
+    cout << "Toko dan relasinya berhasil dihapus\n";
+}
