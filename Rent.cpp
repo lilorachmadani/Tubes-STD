@@ -29,3 +29,14 @@ Barang *cariBarang(int idBarang)
     }
     return NULL;
 }
+
+void tambahToko(int idToko, string namaToko)
+{
+    Toko *baru = new Toko;
+    baru->idToko = idToko;
+    baru->namaToko = namaToko;
+    baru->next = firstToko;
+    firstToko = baru;
+
+    cout << "Toko berhasil ditambahkan\n";
+}
