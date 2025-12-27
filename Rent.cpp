@@ -17,3 +17,15 @@ Toko *cariToko(int idToko)
     }
     return NULL;
 }
+
+Barang *cariBarang(int idBarang)
+{
+    Barang *p = firstBarang;
+    while (p != NULL)
+    {
+        if (p->idBarang == idBarang)
+            return p;
+        p = p->next;
+    }
+    return NULL;
+}
