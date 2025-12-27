@@ -40,3 +40,14 @@ void tambahToko(int idToko, string namaToko)
 
     cout << "Toko berhasil ditambahkan\n";
 }
+
+void tambahBarang(int idBarang, string namaBarang)
+{
+    Barang *baru = new Barang;
+    baru->idBarang = idBarang;
+    baru->namaBarang = namaBarang;
+    baru->next = firstBarang;
+    firstBarang = baru;
+
+    cout << "Barang berhasil ditambahkan\n";
+}
