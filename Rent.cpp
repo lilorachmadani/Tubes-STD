@@ -204,3 +204,31 @@ void tampilSemuaToko()
             cout << " (Tidak ada barang)\n";
     }
 }
+
+void tampilBarangDariToko(int idToko)
+{
+    Toko *t = cariToko(idToko);
+    if (t == NULL)
+    {
+        cout << "Toko tidak ditemukan\n";
+        return;
+    }
+
+    cout << "\nID Toko   : " << t->idToko << endl;
+    cout << "Nama Toko : " << t->namaToko << endl;
+    cout << "Barang disewakan:\n";
+
+    bool ada = false;
+    for (Relasi *r = firstRelasi; r != NULL; r = r->next)
+    {
+        if (r->toko == t)
+        {
+            cout << " - ID Barang : " << r->barang->idBarang
+                 << " | Nama : " << r->barang->namaBarang << endl;
+            ada = true;
+        }
+    }
+
+    if (!ada)
+        cout << " (Tidak ada barang)\n";
+}
